@@ -1,17 +1,5 @@
 import { useState } from "react";
-import froxyLogo from "/froxy.jpg";
-import { css } from "@emotion/react";
-
-const logoCss = css`
-  border-radius: 25%;
-  width: 20rem;
-  padding: 1.5rem;
-  will-change: filter;
-  transition: filter 300ms;
-  &:hover {
-    filter: drop-shadow(0 0 2rem #646cffaa);
-  }
-`;
+import MainLogo from "../components/MainLogo";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,9 +7,7 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://github.com/lifthus/froxy" target="_blank">
-          <img css={logoCss} src={froxyLogo} alt="Froxy logo" />
-        </a>
+        <MainLogo href="https://github.com/lifthus/froxy" />
       </div>
       <h1>Froxy</h1>
       <div className="card">

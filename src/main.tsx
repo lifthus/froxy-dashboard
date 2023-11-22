@@ -8,18 +8,9 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import ErrorPage from "./pages/error";
+import NotFoundPage from "./pages/404";
 
-const BASIC = import.meta.glob<any>("/src/pages/(_app|404).tsx", {
-  eager: true,
-});
-const basics: any = Object.keys(BASIC).reduce((basic, filePath) => {
-  const key = filePath.replace(/\/src\/pages\/|\.tsx$/g, "");
-  return { ...basic, [key]: BASIC[filePath].default };
-}, {});
-
-const App = basics?.["_app"] || Fragment;
-const NotFoundPage = basics?.["404"] || Fragment;
-
+// file system routing
 const PAGES = import.meta.glob<any>("/src/pages/**/*.tsx", { eager: true });
 const pages = Object.keys(PAGES).map((filePath) => {
   const path = filePath
@@ -28,11 +19,9 @@ const pages = Object.keys(PAGES).map((filePath) => {
     .replace(/\[(.+)\]/, ":$1");
   return { path, component: PAGES[filePath].default };
 });
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<ErrorPage />}>
-      <Route path="/" element={<App />}></Route>
       {pages.map(({ path, component: Component = Fragment }, idx) => (
         <Route key={idx} path={path} element={<Component />} />
       ))}

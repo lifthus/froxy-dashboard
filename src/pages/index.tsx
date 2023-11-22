@@ -1,7 +1,17 @@
 import { useState } from "react";
-import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg";
-import "../App.css";
+import froxyLogo from "/froxy.jpg";
+import { css } from "@emotion/react";
+
+const logoCss = css`
+  border-radius: 25%;
+  width: 20rem;
+  padding: 1.5rem;
+  will-change: filter;
+  transition: filter 300ms;
+  &:hover {
+    filter: drop-shadow(0 0 2rem #646cffaa);
+  }
+`;
 
 function App() {
   const [count, setCount] = useState(0);
@@ -9,14 +19,11 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a href="https://github.com/lifthus/froxy" target="_blank">
+          <img css={logoCss} src={froxyLogo} alt="Froxy logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Froxy</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}

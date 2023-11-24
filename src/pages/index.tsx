@@ -13,7 +13,6 @@ function App() {
     queryKey: ["client", "ipAddr"],
     queryFn: clientApi.getClientIPAddr,
   });
-  console.log(data);
 
   const ipAddr = useClientStore((state) => state.ipAddr);
 
@@ -23,7 +22,7 @@ function App() {
         <MainLogo href="https://github.com/lifthus/froxy" />
       </div>
       <h1>Froxy</h1>
-      <h2>{data}</h2>
+      <h3>{data}</h3>
       <p>{ipAddr}</p>
       <form action="" method="post">
         <div>

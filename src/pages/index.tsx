@@ -1,8 +1,21 @@
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
+import { clientApi } from "../api/clientApi";
+
+import { useClientStore } from "../store/clientStore";
+
 import MainLogo from "../components/MainLogo";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const root = useClientStore((state) => state.root);
+
+  const { data } = useQuery({
+    queryKey: ["client", "ipAddr"],
+    queryFn: clientApi.getClientIPAddr,
+  });
+  console.log(data);
+
+  const ipAddr = useClientStore((state) => state.ipAddr);
 
   return (
     <>
@@ -10,17 +23,18 @@ function App() {
         <MainLogo href="https://github.com/lifthus/froxy" />
       </div>
       <h1>Froxy</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h2>{data}</h2>
+      <p>{ipAddr}</p>
+      <form action="" method="post">
+        <div>
+          <label>Root username:</label>
+          <input type="text" name="root-username" />
+        </div>
+        <div>
+          <label>Root password:</label>
+          <input type="password" name="root-password" />
+        </div>
+      </form>
     </>
   );
 }

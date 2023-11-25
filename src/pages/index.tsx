@@ -6,6 +6,8 @@ import MainLogo from "../components/MainLogo";
 import { bigFontCss } from "../css/fontSize";
 import { SlightTBMarginDiv } from "../components/MarginDiv";
 import { useClientStore } from "../store/clientStore";
+import TopStatusBar from "../components/TopStatusBar";
+import ProxyOverview from "../components/overview/ProxyOverview";
 
 function App() {
   const { setRoot, setIPAddr, setConnectedAt, root, ipAddr, connectedAt } =
@@ -59,12 +61,8 @@ function App() {
     );
   return (
     <>
-      ROOT
-      <form action="/api/session/out" method="post">
-        <button css={bigFontCss} type="submit">
-          Sign out
-        </button>
-      </form>
+      <TopStatusBar />
+      <ProxyOverview />
     </>
   );
 }

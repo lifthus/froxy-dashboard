@@ -10,7 +10,11 @@ const logoIconCss = css`
 `;
 
 const LogoIcon = () => {
-  return <img css={logoIconCss} src={froxyLogo} alt="Froxy logo" />;
+  return (
+    <a href="/" target="_self">
+      <img css={logoIconCss} src={froxyLogo} alt="Froxy logo" />
+    </a>
+  );
 };
 
 export default LogoIcon;

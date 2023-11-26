@@ -13,6 +13,12 @@ export const forwardProxyApi = {
     if (res.status !== 200) throw new Error("failed to get forward proxy info");
     return res.data;
   },
+  removeFromWhitelist: async (name: string, target: string): Promise<void> => {
+    const res = await axios.delete(
+      "/api/proxy/forward/whitelist/" + name + "/" + target
+    );
+    if (res.status !== 200) throw new Error("failed to remove from whitelist");
+  },
 };
 
 type ForwardProxyOverview = {

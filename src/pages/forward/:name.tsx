@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import TopStatusBar from "../../components/TopStatusBar";
 import { forwardProxyApi } from "../../api/forwardProxyApi";
-import { useQuery } from "@tanstack/react-query";
-import { css } from "@emotion/react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { flexCenterCss } from "../../css/flex";
 
 const ForwardProxy = () => {
   const name = useParams().name;
@@ -13,10 +13,21 @@ const ForwardProxy = () => {
       return data;
     },
   });
-
   if (isError) {
     window.location.href = "/error";
   }
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: async (target: string) => {
+      if (!name) return;
+      return forwardProxyApi.removeFromWhitelist(name, target);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["forward", name] });
+    },
+  });
 
   return (
     <>
@@ -26,12 +37,27 @@ const ForwardProxy = () => {
       <div></div>
       <div>
         <h2>📄 Whitelist</h2>
-        {data?.allowed.map((allowed) => (
-          <>a</>
-        ))}
+        <div css={flexCenterCss}>
+          <table>
+            {data?.allowed.map((allowed) => (
+              <tr>
+                <td>{allowed} </td>
+                <td>
+                  <button
+                    onClick={() => {
+                      mutate(allowed);
+                    }}
+                  >
+                    🗑️
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </table>
+        </div>
         <form action="/api/proxy/forward/whitelist" method="POST">
           <input readOnly type="text" name="name" value={name} hidden />
-          <input type="text" name="target" placeholder="123.123.123.123" />
+          <input type="text" name="target" placeholder="IP address" />
           <button type="submit">Add to whitelist</button>
         </form>
       </div>

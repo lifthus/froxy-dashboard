@@ -58,6 +58,9 @@ const TopStatusBar = () => {
                 background-color: orange;
                 height: 100%;
                 border: none;
+                &:hover {
+                  cursor: pointer;
+                }
               `}
               type="submit"
             >

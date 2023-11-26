@@ -1,8 +1,6 @@
-import { useParams } from "react-router-dom";
 import MainLogo from "../../components/MainLogo";
 
 const ReverseProxy = () => {
-  const name = useParams().name;
   return (
     <div>
       <MainLogo />

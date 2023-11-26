@@ -1,4 +1,3 @@
-import React from "react";
 import LogoIcon from "./LogoIcon";
 import { bigFontCss } from "../css/fontSize";
 import { css } from "@emotion/react";

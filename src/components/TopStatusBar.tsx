@@ -28,7 +28,7 @@ const statCss = css`
 `;
 
 const TopStatusBar = () => {
-  const { ipAddr } = useClientStore();
+  const ipAddr = useClientStore((state) => state.ipAddr);
   return (
     <>
       <div css={topStatusBarCss}>

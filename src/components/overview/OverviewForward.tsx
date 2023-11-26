@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { forwardProxyApi } from "../../api/forwardProxyApi";
 import { overviewCss } from "../../css/overview";
 import { anchorNoStyleCss } from "../../css/anchor";
+import { Link } from "react-router-dom";
 
 const OverviewForward = () => {
   const { data } = useQuery({
@@ -15,9 +16,9 @@ const OverviewForward = () => {
     <div>
       {data &&
         Object.keys(data).map((name) => (
-          <a
+          <Link
             css={anchorNoStyleCss}
-            href={`forward/${name}`}
+            to={`forward/${name}`}
             key={name + " overview"}
           >
             <div css={overviewCss}>
@@ -25,7 +26,7 @@ const OverviewForward = () => {
                 <b>{name}</b>:{data[name].port}
               </div>
             </div>
-          </a>
+          </Link>
         ))}
     </div>
   );

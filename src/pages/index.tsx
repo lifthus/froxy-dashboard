@@ -8,20 +8,22 @@ import { SlightTBMarginDiv } from "../components/MarginDiv";
 import { useClientStore } from "../store/clientStore";
 import TopStatusBar from "../components/TopStatusBar";
 import ProxyOverview from "../components/overview/ProxyOverview";
+import { useEffect } from "react";
 
 function App() {
   const { setRoot, setIPAddr, setConnectedAt, root, ipAddr, connectedAt } =
-    useClientStore();
-  useQuery({
+    useClientStore((state) => state);
+  const { data } = useQuery({
     queryKey: ["client", "ipAddr"],
-    queryFn: async () => {
-      const data = await sessionApi.getClientInfo();
-      setRoot(data?.root || false);
-      setIPAddr(data?.ipAddr || "?");
-      setConnectedAt(data?.iat || "");
-      return data;
-    },
+    queryFn: () => sessionApi.getClientInfo(),
   });
+
+  useEffect(() => {
+    if (!data) return;
+    setRoot(data.root);
+    setIPAddr(data.ipAddr);
+    setConnectedAt(data.iat);
+  }, [data]);
 
   if (!root)
     return (

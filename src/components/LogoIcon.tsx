@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import froxyLogo from "/froxy.jpg";
 
 import { css } from "@emotion/react";
@@ -11,9 +12,9 @@ const logoIconCss = css`
 
 const LogoIcon = () => {
   return (
-    <a href="/" target="_self">
+    <Link to="/">
       <img css={logoIconCss} src={froxyLogo} alt="Froxy logo" />
-    </a>
+    </Link>
   );
 };
 

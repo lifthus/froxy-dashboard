@@ -16,7 +16,7 @@ export const useClientStore = create<ClientStore>((set) => ({
   setRoot: (isRoot) => set(() => ({ root: isRoot })),
 
   ipAddr: "",
-  setIPAddr: (ipAddr: string) => set(() => ({ ipAddr: ipAddr })),
+  setIPAddr: (addr: string) => set(() => ({ ipAddr: addr })),
 
   connectedAt: new Date(),
   setConnectedAt: (connectedAt: string) => {

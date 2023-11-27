@@ -1,4 +1,4 @@
-import LogoIcon from "./LogoIcon";
+import LogoIcon from "./logo/LogoIcon";
 import { bigFontCss } from "../css/fontSize";
 import { css } from "@emotion/react";
 import { useClientStore } from "../store/clientStore";

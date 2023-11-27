@@ -1,4 +1,4 @@
-import MainLogo from "../components/MainLogo";
+import MainLogo from "../components/logo/MainLogo";
 
 const NotFoundPage = () => {
   return (

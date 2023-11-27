@@ -39,7 +39,7 @@ const ForwardProxy = () => {
         <h2>📄 Whitelist</h2>
         <div css={flexCenterCss}>
           <table>
-            {data?.allowed.map((allowed) => (
+            {data?.whitelist.map((allowed) => (
               <tr>
                 <td>{allowed} </td>
                 <td>

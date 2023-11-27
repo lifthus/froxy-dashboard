@@ -23,12 +23,12 @@ export const forwardProxyApi = {
 
 type ForwardProxyOverview = {
   [key: string]: {
-    allowed: string[];
+    whitelist: string[];
     port: string;
   };
 };
 
 type ForwardProxyInfo = {
-  allowed: string[];
+  whitelist: string[];
   port: string;
 };

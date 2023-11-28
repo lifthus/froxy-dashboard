@@ -5,7 +5,7 @@ const ProxyOverview = () => {
   return (
     <div>
       <div>
-        <h2>Forward proxies</h2>
+        <h2> Forward proxies</h2>
         <OverviewForward />
         <h2>Reverse proxies</h2>
         <OverviewReverse />

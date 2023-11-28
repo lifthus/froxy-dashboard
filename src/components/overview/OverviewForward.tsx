@@ -1,8 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { forwardProxyApi } from "../../api/forwardProxyApi";
-import { overviewCss } from "../../css/overview";
+import { overviewCss, overviewTdCss } from "../../css/overview";
 import { anchorNoStyleCss } from "../../css/anchor";
 import { Link } from "react-router-dom";
+import { flexCenterCss } from "../../css/flex";
+import OnOffButton from "../buttons/OnOffButton";
 
 const OverviewForward = () => {
   const { data } = useQuery({
@@ -12,23 +14,38 @@ const OverviewForward = () => {
       return data;
     },
   });
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: (name: string) => forwardProxyApi.switchForwardProxy(name),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["overview", "forward"] }),
+  });
+
   return (
-    <div>
-      {data &&
-        Object.keys(data).map((name) => (
-          <Link
-            css={anchorNoStyleCss}
-            to={`forward/${name}`}
-            key={name + " overview"}
-          >
-            <div css={overviewCss}>
-              <div>
-                <b>{name}</b>:{data[name].port}
-              </div>
-            </div>
-          </Link>
-        ))}
-    </div>
+    <table>
+      <tbody>
+        {data &&
+          Object.keys(data).map((name) => (
+            <tr css={flexCenterCss} key={name + " overview"}>
+              <td>
+                <OnOffButton on={data[name].on} onClick={() => mutate(name)} />
+              </td>
+              <td css={overviewCss}>
+                <Link
+                  css={anchorNoStyleCss}
+                  to={`forward/${name}`}
+                  key={name + " overview"}
+                >
+                  <b>{name}</b>:{data[name].port}
+                </Link>
+              </td>
+              <td css={overviewTdCss}>👨‍💻:{String(data[name].whitelistLen)}</td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
   );
 };
 

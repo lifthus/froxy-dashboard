@@ -7,6 +7,6 @@ export const flexEvenlyCss = css`
 
 export const flexCenterCss = css`
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 `;

@@ -19,16 +19,23 @@ export const forwardProxyApi = {
     );
     if (res.status !== 200) throw new Error("failed to remove from whitelist");
   },
+
+  switchForwardProxy: async (name: string): Promise<void> => {
+    const res = await axios.post("/api/proxy/forward/switch/" + name);
+    if (res.status !== 200) throw new Error("failed to switch forward proxy");
+  },
 };
 
 type ForwardProxyOverview = {
   [key: string]: {
-    whitelist: string[];
+    on: boolean;
     port: string;
+    whitelistLen: number;
   };
 };
 
 type ForwardProxyInfo = {
-  whitelist: string[];
+  on: boolean;
   port: string;
+  whitelist: string[];
 };

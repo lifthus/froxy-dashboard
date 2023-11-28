@@ -4,6 +4,8 @@ import { forwardProxyApi } from "../../api/forwardProxyApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { flexCenterCss } from "../../css/flex";
 import { BigOnOffButton } from "../../components/buttons/OnOffButton";
+import NormalText from "../../components/text/NormalText";
+import { css } from "@emotion/react";
 
 const ForwardProxy = () => {
   const name = useParams().name;
@@ -49,23 +51,33 @@ const ForwardProxy = () => {
       <div>
         <BigOnOffButton on={data?.on || false} onClick={() => switchProxy()} />
         <h2>📄 Whitelist</h2>
-        <div css={flexCenterCss}>
+        <div
+          css={css`
+            ${flexCenterCss}
+            border: 1px solid gray;
+            border-radius: 1rem;
+          `}
+        >
           <table>
             <tbody>
-              {data?.whitelist.map((allowed) => (
-                <tr key={"whitelist" + allowed}>
-                  <td>{allowed} </td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        mutate(allowed);
-                      }}
-                    >
-                      🗑️
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {data?.whitelist.length || 0 > 0 ? (
+                data?.whitelist.map((allowed) => (
+                  <tr key={"whitelist" + allowed}>
+                    <td>{allowed} </td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          mutate(allowed);
+                        }}
+                      >
+                        🗑️
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <NormalText>∅</NormalText>
+              )}
             </tbody>
           </table>
         </div>

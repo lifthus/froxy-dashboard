@@ -27,7 +27,7 @@ export default OnOffButton;
 
 const BigOnOffCss = (on: boolean) =>
   css`
-    width: 4rem;
+    min-width: 4rem;
     font-size: 1.25rem;
     font-weight: bold;
     color: ${on ? "green" : "white"};
@@ -39,9 +39,16 @@ const BigOnOffCss = (on: boolean) =>
     }
   `;
 
-export const BigOnOffButton = ({ on, onClick }: OnOffButtonProps) => {
+type BigOnOffButtonProps = {
+  name?: string;
+  on: boolean;
+  onClick: () => void;
+};
+
+export const BigOnOffButton = ({ name, on, onClick }: BigOnOffButtonProps) => {
   return (
     <button css={BigOnOffCss(on)} onClick={onClick}>
+      {name ? name + " " : ""}
       {on ? "ON" : "OFF"}
     </button>
   );

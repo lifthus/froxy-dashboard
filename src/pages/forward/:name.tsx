@@ -6,6 +6,7 @@ import { flexCenterCss } from "../../css/flex";
 import { BigOnOffButton } from "../../components/buttons/OnOffButton";
 import NormalText from "../../components/text/NormalText";
 import { css } from "@emotion/react";
+import BigText from "../../components/text/BigText";
 
 const ForwardProxy = () => {
   const name = useParams().name;
@@ -45,11 +46,20 @@ const ForwardProxy = () => {
   return (
     <>
       <TopStatusBar />
-      Forward proxy server on port:<b>{data?.port}</b>
-      <h1>{name}</h1>
+      <div css={flexCenterCss}>
+        <BigText>
+          <b>{name}</b>
+        </BigText>
+        <NormalText>:{data?.port}</NormalText>
+      </div>
+      <br />
       <div></div>
       <div>
-        <BigOnOffButton on={data?.on || false} onClick={() => switchProxy()} />
+        <BigOnOffButton
+          name="Forward Proxy"
+          on={data?.on || false}
+          onClick={() => switchProxy()}
+        />
         <h2>📄 Whitelist</h2>
         <div
           css={css`
@@ -58,10 +68,10 @@ const ForwardProxy = () => {
             border-radius: 1rem;
           `}
         >
-          <table>
-            <tbody>
-              {data?.whitelist.length || 0 > 0 ? (
-                data?.whitelist.map((allowed) => (
+          {data?.whitelist.length || 0 > 0 ? (
+            <table>
+              <tbody>
+                {data?.whitelist.map((allowed) => (
                   <tr key={"whitelist" + allowed}>
                     <td>{allowed} </td>
                     <td>
@@ -74,12 +84,14 @@ const ForwardProxy = () => {
                       </button>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <NormalText>∅</NormalText>
-              )}
-            </tbody>
-          </table>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <BigText>
+              <b>∅</b>
+            </BigText>
+          )}
         </div>
         <br />
         <form action="/api/proxy/forward/whitelist" method="POST">

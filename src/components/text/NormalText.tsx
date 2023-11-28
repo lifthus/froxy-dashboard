@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 
 const NormalTextCss = css`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 `;
 
 type NormalTextProps = {

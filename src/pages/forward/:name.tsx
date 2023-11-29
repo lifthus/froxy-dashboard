@@ -53,13 +53,12 @@ const ForwardProxy = () => {
         <NormalText>:{data?.port}</NormalText>
       </div>
       <br />
-      <div></div>
+      <BigOnOffButton
+        name="Forward Proxy"
+        on={data?.on || false}
+        onClick={() => switchProxy()}
+      />
       <div>
-        <BigOnOffButton
-          name="Forward Proxy"
-          on={data?.on || false}
-          onClick={() => switchProxy()}
-        />
         <h2>📄 Whitelist</h2>
         <div
           css={css`

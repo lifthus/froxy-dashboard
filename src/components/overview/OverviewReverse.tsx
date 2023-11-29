@@ -23,33 +23,34 @@ const OverviewReverse = () => {
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["overview", "reverse"] }),
   });
-  console.log(data);
 
   return (
-    <div>
-      {data &&
-        Object.keys(data).map((name) => (
-          <tr css={flexCenterCss} key={name + " overview"}>
-            <td>
-              <OnOffButton
-                on={data[name].on}
-                onClick={() => {
-                  mutate(name);
-                }}
-              />
-            </td>
-            <td css={overviewCss}>
-              <Link
-                css={anchorNoStyleCss}
-                to={`reverse/${name}`}
-                key={name + " overview"}
-              >
-                <b>{name}</b>:{data[name].port}
-              </Link>
-            </td>
-          </tr>
-        ))}
-    </div>
+    <table>
+      <tbody>
+        {data &&
+          Object.keys(data).map((name) => (
+            <tr css={flexCenterCss} key={name + " overview"}>
+              <td>
+                <OnOffButton
+                  on={data[name].on}
+                  onClick={() => {
+                    mutate(name);
+                  }}
+                />
+              </td>
+              <td css={overviewCss}>
+                <Link
+                  css={anchorNoStyleCss}
+                  to={`reverse/${name}`}
+                  key={name + " overview"}
+                >
+                  <b>{name}</b>:{data[name].port}
+                </Link>
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
   );
 };
 

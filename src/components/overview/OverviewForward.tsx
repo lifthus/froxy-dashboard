@@ -28,7 +28,7 @@ const OverviewForward = () => {
       <tbody>
         {data &&
           Object.keys(data).map((name) => (
-            <tr css={flexCenterCss} key={name + " overview"}>
+            <tr key={name + " overview"}>
               <td>
                 <OnOffButton on={data[name].on} onClick={() => mutate(name)} />
               </td>

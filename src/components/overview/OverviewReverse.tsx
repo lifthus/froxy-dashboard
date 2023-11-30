@@ -29,7 +29,7 @@ const OverviewReverse = () => {
       <tbody>
         {data &&
           Object.keys(data).map((name) => (
-            <tr css={flexCenterCss} key={name + " overview"}>
+            <tr key={name + " overview"}>
               <td>
                 <OnOffButton
                   on={data[name].on}

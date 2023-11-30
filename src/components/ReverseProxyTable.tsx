@@ -16,14 +16,18 @@ const ReverseProxyTable = ({ proxyMap }: ReverseProxyTableProps) => {
         </tr>
       </thead>
       <tbody>
-        {table.map((row, _) => (
-          <tr>
+        {table.map((row, i) => (
+          <tr key={`proxy table row ${i}`}>
             {row.map((cell: any, j: number) => {
               if (cell === null) return null;
               if (j === 2) {
-                return <td>{cell.url}</td>;
+                return <td key={`${i} ${j} ${cell.url}`}>{cell.url}</td>;
               }
-              return <td rowSpan={cell[1]}>{cell[0]}</td>;
+              return (
+                <td key={`${i} ${j} ${cell[0]}`} rowSpan={cell[1]}>
+                  {cell[0]}
+                </td>
+              );
             })}
           </tr>
         ))}

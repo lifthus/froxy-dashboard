@@ -28,4 +28,17 @@ export type ReverseProxyOverview = {
 export type ReverseProxyInfo = {
   on: boolean;
   port: string;
+  sec: boolean;
+  proxyMap: ProxyMap;
+};
+
+export type ProxyMap = {
+  [key: string]: {
+    [key: string]: ProxyTarget[];
+  };
+};
+
+export type ProxyTarget = {
+  on: boolean;
+  url: string;
 };

@@ -6,6 +6,7 @@ import NormalText from "../../components/text/NormalText";
 import { flexCenterCss } from "../../css/flex";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { reverseProxyApi } from "../../api/reverseProxyApi";
+import ReverseProxyTable from "../../components/ReverseProxyTable";
 
 const ReverseProxy = () => {
   const name = useParams().name;
@@ -46,6 +47,9 @@ const ReverseProxy = () => {
         on={data?.on || false}
         onClick={() => switchProxy()}
       />
+      <br />
+      <br />
+      {!!data && <ReverseProxyTable proxyMap={data?.proxyMap} />}
     </>
   );
 };

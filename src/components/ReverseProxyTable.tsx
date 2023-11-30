@@ -1,4 +1,7 @@
-import { ProxyMap } from "../api/reverseProxyApi";
+import { useEffect, useState } from "react";
+import { ProxyMap, ProxyTarget } from "../api/reverseProxyApi";
+import { flexCenterCss } from "../css/flex";
+import { css } from "@emotion/react";
 
 type ReverseProxyTableProps = {
   proxyMap: ProxyMap;
@@ -12,6 +15,7 @@ const ReverseProxyTable = ({ proxyMap }: ReverseProxyTableProps) => {
         <tr>
           <td>Host</td>
           <td>Paths</td>
+          <td></td>
           <td>Targets</td>
         </tr>
       </thead>
@@ -20,7 +24,7 @@ const ReverseProxyTable = ({ proxyMap }: ReverseProxyTableProps) => {
           <tr key={`proxy table row ${i}`}>
             {row.map((cell: any, j: number) => {
               if (cell === null) return null;
-              if (j === 2) {
+              if (j === 3) {
                 return <td key={`${i} ${j} ${cell.url}`}>{cell.url}</td>;
               }
               return (
@@ -39,7 +43,7 @@ const ReverseProxyTable = ({ proxyMap }: ReverseProxyTableProps) => {
 export default ReverseProxyTable;
 
 const formTable = (proxyMap: ProxyMap): any[] => {
-  const result: any[] = [];
+  const result: any[] = [[], [], [], []];
   scanRowSpan(proxyMap, result, 0);
   return result.reduce(
     (acc, cur) => cur.map((_: any, i: number) => [...(acc[i] || []), cur[i]]),
@@ -48,9 +52,11 @@ const formTable = (proxyMap: ProxyMap): any[] => {
 };
 
 const scanRowSpan = (children: any, result: any[], depth: number): number => {
-  if (result.length < depth + 1) result.push([]);
   if (depth === 2) {
-    result[depth] = result[depth].concat(children);
+    children.forEach((child: ProxyTarget) => {
+      result[2].push([<TargetOnSign on={child.on} />, 1]);
+    });
+    result[3] = result[3].concat(children);
     return children.length;
   }
   let rowSpan = 0;
@@ -66,3 +72,33 @@ const scanRowSpan = (children: any, result: any[], depth: number): number => {
   }
   return rowSpan;
 };
+
+const TargetOnSign = ({ on }: { on: boolean }) => {
+  const [green, setGreen] = useState(0);
+  const arrows = ["▶️", "▶️", "▶️"];
+  useEffect(() => {
+    if (!on) return;
+    const interval = setInterval(() => {
+      setGreen((prev) => (prev + 1) % 3);
+    }, 500);
+    return () => clearInterval(interval);
+  });
+  return (
+    <span>
+      {arrows.map((arrow, i) => {
+        if (!on) return <span key={`arrow ${i}`}>{arrow}</span>;
+        if (green === i)
+          return (
+            <span css={greenCss} key={`arrow ${i}`}>
+              {arrow}
+            </span>
+          );
+        return <span key={`arrow ${i}`}>{arrow}</span>;
+      })}
+    </span>
+  );
+};
+
+const greenCss = css`
+  color: limegreen;
+`;

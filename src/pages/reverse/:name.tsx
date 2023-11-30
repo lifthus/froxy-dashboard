@@ -49,7 +49,7 @@ const ReverseProxy = () => {
       />
       <br />
       <br />
-      {!!data && <ReverseProxyTable proxyMap={data?.proxyMap} />}
+      {!!data && <ReverseProxyTable sec={data.sec} proxyMap={data?.proxyMap} />}
     </>
   );
 };

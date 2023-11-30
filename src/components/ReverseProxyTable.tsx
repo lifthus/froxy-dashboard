@@ -1,22 +1,42 @@
 import { useEffect, useState } from "react";
 import { ProxyMap, ProxyTarget } from "../api/reverseProxyApi";
-import { flexCenterCss } from "../css/flex";
 import { css } from "@emotion/react";
 
+const tableCss = css`
+  td {
+    padding: 0.75rem;
+    border-bottom: 0.1rem gray solid;
+  }
+`;
+
+const tableHeadCss = css`
+  td {
+    border-top: 0.2rem gray double;
+    border-bottom: 0.2rem gray double;
+  }
+`;
+
 type ReverseProxyTableProps = {
+  sec: boolean;
   proxyMap: ProxyMap;
 };
 
-const ReverseProxyTable = ({ proxyMap }: ReverseProxyTableProps) => {
+const ReverseProxyTable = ({ sec, proxyMap }: ReverseProxyTableProps) => {
   const table = formTable(proxyMap);
   return (
-    <table>
-      <thead>
+    <table css={tableCss}>
+      <thead css={tableHeadCss}>
         <tr>
-          <td>Host</td>
-          <td>Paths</td>
+          <td>
+            <b>Host</b>
+          </td>
+          <td>
+            <b>Paths</b>
+          </td>
           <td></td>
-          <td>Targets</td>
+          <td>
+            <b>Targets</b>
+          </td>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +44,13 @@ const ReverseProxyTable = ({ proxyMap }: ReverseProxyTableProps) => {
           <tr key={`proxy table row ${i}`}>
             {row.map((cell: any, j: number) => {
               if (cell === null) return null;
+              if (j === 0) {
+                return (
+                  <td key={`${i} ${j} ${cell[0]}`} rowSpan={cell[1]}>
+                    {`${sec ? "https://" : "http://"}${cell[0]}`}
+                  </td>
+                );
+              }
               if (j === 3) {
                 return <td key={`${i} ${j} ${cell.url}`}>{cell.url}</td>;
               }

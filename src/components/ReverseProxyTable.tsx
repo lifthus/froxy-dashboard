@@ -113,7 +113,12 @@ const TargetOnSign = ({ on }: { on: boolean }) => {
   return (
     <span>
       {arrows.map((arrow, i) => {
-        if (!on) return <span key={`arrow ${i}`}>{arrow}</span>;
+        if (!on)
+          return (
+            <span css={redCss} key={`arrow ${i}`}>
+              {arrow}
+            </span>
+          );
         if (green === i)
           return (
             <span css={greenCss} key={`arrow ${i}`}>
@@ -128,4 +133,8 @@ const TargetOnSign = ({ on }: { on: boolean }) => {
 
 const greenCss = css`
   color: limegreen;
+`;
+
+const redCss = css`
+  color: red;
 `;
